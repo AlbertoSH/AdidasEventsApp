@@ -5,12 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="200dp"
         android:layout_height="match_parent"
-        />
+        xmlns:tools="http://schemas.android.com/tools">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+
+        <ProgressBar
+            android:id="@+id/prgLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/txtError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="ERROR :("
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+    </FrameLayout>
     <FrameLayout
         android:id="@+id/detail_container"
         android:layout_width="match_parent"

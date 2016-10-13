@@ -15,3 +15,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+# Retrolambda
+-dontwarn java.lang.invoke.*
+
+-keepattributes InnerClasses

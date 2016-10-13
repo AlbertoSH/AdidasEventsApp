@@ -1,3 +1,7 @@
 <resources>
+
     <string name="app_name">AdidasEventsApp</string>
+    <string name="error.noNetwork">No network available</string>
+    <string name="error.unknown">Uooops! Something weird happened</string>
+
 </resources>

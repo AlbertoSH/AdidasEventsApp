@@ -1,36 +1,55 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+retrolambda {
+    javaVersion JavaVersion.VERSION_1_7
+}
 
 android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.3"
     defaultConfig {
-        applicationId "albertosh.github.com.adidaseventsapp"
-        minSdkVersion 16
+        applicationId "com.github.albertosh.adidaseventsapp"
         targetSdkVersion 24
         versionCode 1
+        minSdkVersion 21
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/services/org.codehaus.groovy.runtime.ExtensionModule'
+        exclude 'META-INF/services/com.fasterxml.jackson.databind.Module'
+    }
+    productFlavors {
+        local {
+            buildConfigField "String", "IMAGE_RESOURCE_BASE_URL", '"http://192.168.1.103:9000/"'
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    compile fileTree(dir: 'libs', include: '*.jar')
+
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
 
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
     compile 'com.google.dagger:dagger:2.7'
     apt 'com.google.dagger:dagger-compiler:2.7'
@@ -41,4 +60,19 @@ dependencies {
 
     compile 'com.hannesdorfmann.mosby:mvp-conductor:0.8.2'
     compile 'com.hannesdorfmann.mosby:viewstate-conductor:0.8.2'
+
+    compile 'joda-time:joda-time:2.9.4'
+    compile 'net.sourceforge.streamsupport:streamsupport:1.5.1'
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
+
+    compile 'io.reactivex:rxjava:1.2.1'
+
+    compile 'com.fernandocejas:arrow:1.0.0'
+
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
 }
