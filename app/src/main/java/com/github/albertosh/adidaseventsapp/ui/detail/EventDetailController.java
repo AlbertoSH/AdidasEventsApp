@@ -2,6 +2,8 @@ package com.github.albertosh.adidaseventsapp.ui.detail;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +16,7 @@ import com.github.albertosh.adidaseventsapp.di.detail.DaggerEventDetailComponent
 import com.github.albertosh.adidaseventsapp.di.detail.EventDetailComponent;
 import com.github.albertosh.adidaseventsapp.model.AEvent;
 import com.github.albertosh.adidaseventsapp.ui.base.BaseLceViewStateController;
+import com.github.albertosh.adidaseventsapp.ui.login.LoginActivity;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 import com.squareup.picasso.Picasso;
@@ -21,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import javax.annotation.Nonnull;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class EventDetailController
         extends BaseLceViewStateController<View, AEvent, EventDetailView, IEventDetailPresenter, EventDetailComponent>
@@ -50,6 +54,8 @@ public class EventDetailController
     TextView txtDate;
     @BindView(R.id.txtDescription)
     TextView txtDescription;
+    @BindView(R.id.fab)
+    FloatingActionButton floatingActionButton;
 
     @Deprecated
     /**
@@ -119,5 +125,38 @@ public class EventDetailController
     @Override
     public void loadData(boolean pullToRefresh) {
         presenter.loadEvent(getArgs().getParcelable(KEY_EVENT), getArgs().getString(KEY_EVENT_ID));
+    }
+
+    @OnClick(R.id.fab)
+    public void onFabClick() {
+        presenter.enrollEvent();
+    }
+
+    @Override
+    public String getEventId() {
+        return getArgs().getString(KEY_EVENT_ID);
+    }
+
+    @Override
+    public void disableEnrollment() {
+        floatingActionButton.animate()
+                .scaleX(0f)
+                .scaleY(0f)
+                .setInterpolator(new FastOutSlowInInterpolator())
+                .start();
+    }
+
+    @Override
+    public void enableEnrollment() {
+        floatingActionButton.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .setInterpolator(new FastOutSlowInInterpolator())
+                .start();
+    }
+
+    @Override
+    public void goToLogin() {
+        LoginActivity.start(getActivity());
     }
 }

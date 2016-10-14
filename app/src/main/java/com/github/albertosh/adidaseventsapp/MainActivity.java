@@ -8,11 +8,14 @@ import android.view.ViewGroup;
 import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
-
+import com.github.albertosh.adidasevents.sdk.usermanagement.IUserManagement;
 import com.github.albertosh.adidaseventsapp.ui.main.MainController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +37,31 @@ public class MainActivity extends AppCompatActivity {
 
         router = Conductor.attachRouter(this, container, savedInstanceState);
         if (!router.hasRootController()) {
-            router.setRoot(RouterTransaction.with(new MainController()));
+            // First launch
+            AdidasApp app = ((AdidasApp) getApplication());
+            IUserManagement userManagement = app.getAppComponent().userManagement();
+
+            Observable checkIfUserIsLoggedIn =
+                    userManagement.hasUserLoggedIn()
+                            .toObservable()
+                            .filter(bool -> bool)
+                            .flatMap(aBool -> userManagement.getUserToken().toObservable())
+                            .doOnNext(token -> {
+                                app.createUserComponent(token);
+                            })
+                            .subscribeOn(Schedulers.newThread());
+            Observable loadProperties = app.getAppComponent().customService()
+                    .get()
+                    .doOnSuccess(next -> app.setProperties(next))
+                    .subscribeOn(Schedulers.io())
+                    .toObservable();
+
+            Observable.zip(checkIfUserIsLoggedIn, loadProperties, (a, b) -> null)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnCompleted(() -> {
+                        router.setRoot(RouterTransaction.with(new MainController()));
+                    }).subscribe();
         }
     }
 

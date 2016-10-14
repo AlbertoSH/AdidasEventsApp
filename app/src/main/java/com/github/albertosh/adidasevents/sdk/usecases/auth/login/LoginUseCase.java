@@ -32,12 +32,11 @@ public class LoginUseCase implements ILoginUseCase {
                         .build())
                 .doOnSuccess(loginInfo -> {
                     userComponentManager.createUserComponent(loginInfo.getToken());
-                    userManagement.addUser(
-                            input.getEmail(),
-                            input.getPassword(),
-                            loginInfo.getUuid(),
-                            loginInfo.getToken()
-                    );
-                });
+                }).flatMap(loginInfo -> userManagement.addUser(
+                        input.getEmail(),
+                        input.getPassword(),
+                        loginInfo.getUuid(),
+                        loginInfo.getToken())
+                        .map(aVoid -> loginInfo));
     }
 }

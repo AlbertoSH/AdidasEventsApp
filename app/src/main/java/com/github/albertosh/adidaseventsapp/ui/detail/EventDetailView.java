@@ -5,4 +5,12 @@ import com.hannesdorfmann.mosby.mvp.lce.MvpLceView;
 
 public interface EventDetailView extends MvpLceView<AEvent> {
 
+    String getEventId();
+
+    void disableEnrollment();
+
+    void enableEnrollment();
+
+    void goToLogin();
+
 }

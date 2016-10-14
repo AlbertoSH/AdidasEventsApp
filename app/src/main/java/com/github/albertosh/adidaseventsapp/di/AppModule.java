@@ -2,7 +2,6 @@ package com.github.albertosh.adidaseventsapp.di;
 
 import android.content.Context;
 
-import com.github.albertosh.adidasevents.sdk.scopes.PerApplication;
 import com.github.albertosh.adidaseventsapp.AdidasApp;
 import com.github.albertosh.adidaseventsapp.custom.CustomProperties;
 
@@ -13,6 +12,7 @@ import dagger.Provides;
 public class AppModule {
 
     private final AdidasApp application;
+    private CustomProperties customProperties;
 
     public AppModule(AdidasApp application) {
         this.application = application;
@@ -28,9 +28,12 @@ public class AppModule {
         return application;
     }
 
-    @Provides @PerApplication
-    CustomProperties customPropertiesObservable() {
-        // TODO
-        return new CustomProperties();
+    @Provides
+    CustomProperties customProperties() {
+       return customProperties;
+    }
+
+    public void setCustomProperties(CustomProperties customProperties) {
+        this.customProperties = customProperties;
     }
 }

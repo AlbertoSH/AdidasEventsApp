@@ -6,7 +6,7 @@ import rx.Single;
 
 public interface RetrofitLogin {
 
-    @POST("auth/signup")
+    @POST("user/login")
     Single<LoginServiceOutput> login(@Body LoginServiceInput body);
 
 }

@@ -6,7 +6,7 @@ import rx.Single;
 
 public interface RetrofitSignup {
 
-    @POST("auth/signup")
+    @POST("user/signup")
     Single<SignupServiceOutput> signup(@Body SignupServiceInput body);
 
 }

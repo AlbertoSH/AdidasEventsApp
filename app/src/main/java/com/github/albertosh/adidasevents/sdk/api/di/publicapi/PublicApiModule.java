@@ -1,8 +1,9 @@
 package com.github.albertosh.adidasevents.sdk.api.di.publicapi;
 
 import com.github.albertosh.adidasevents.sdk.api.RxErrorHandlingCallAdapterFactory;
-import com.github.albertosh.adidasevents.sdk.api.di.publicapi.auth.AuthModule;
-import com.github.albertosh.adidasevents.sdk.api.di.publicapi.events.EventsModule;
+import com.github.albertosh.adidasevents.sdk.api.di.publicapi.auth.AuthApiModule;
+import com.github.albertosh.adidasevents.sdk.api.di.publicapi.events.PublicEventsApiModule;
+import com.github.albertosh.adidasevents.sdk.api.publicapi.custom.ICustomService;
 import com.github.albertosh.adidasevents.sdk.scopes.PerApplication;
 
 import javax.inject.Named;
@@ -15,13 +16,13 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.github.albertosh.adidasevents.sdk.api.di.Defaults.DEFAULT_API_BASE_URL;
+
 @Module(includes = {
-        AuthModule.class,
-        EventsModule.class
+        AuthApiModule.class,
+        PublicEventsApiModule.class
 })
 public class PublicApiModule {
-
-    private static final String DEFAULT_API_BASE_URL = "http://192.168.1.103:9000/";
 
     private final String apiBaseUrl;
 
@@ -72,4 +73,8 @@ public class PublicApiModule {
         return new OkHttpClient.Builder().build();
     }
 
+    @Provides @PerApplication
+    ICustomService customService(Retrofit retrofit) {
+        return retrofit.create(ICustomService.class);
+    }
 }

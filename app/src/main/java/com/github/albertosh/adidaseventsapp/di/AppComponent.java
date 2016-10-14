@@ -2,6 +2,7 @@ package com.github.albertosh.adidaseventsapp.di;
 
 import android.content.Context;
 
+import com.github.albertosh.adidasevents.sdk.api.di.publicapi.PublicApiComponent;
 import com.github.albertosh.adidasevents.sdk.api.di.publicapi.PublicApiModule;
 import com.github.albertosh.adidasevents.sdk.repositories.di.event.PublicEventRepositoryModule;
 import com.github.albertosh.adidasevents.sdk.repositories.di.mapper.MapperModule;
@@ -28,14 +29,11 @@ import dagger.Component;
         PublicEventRepositoryModule.class
 })
 public interface AppComponent
-        extends UserManagementComponent, AuthUseCasesComponent, PublicEventUseCasesComponent {
+        extends UserManagementComponent, AuthUseCasesComponent, PublicEventUseCasesComponent, PublicApiComponent {
 
     Context context();
 
     UserComponentManager userComponentManager();
 
-    CustomProperties customProperties();
-
-    //LoginActivityProvider loginActivityProvider();
-
+   CustomProperties customProperties();
 }

@@ -9,4 +9,6 @@ public interface IEventDetailPresenter extends IBasePresenter<EventDetailView> {
 
     void loadEvent(@Nullable AEvent event, String eventId);
 
+    void enrollEvent();
+
 }

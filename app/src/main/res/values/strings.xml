@@ -3,5 +3,14 @@
     <string name="app_name">AdidasEventsApp</string>
     <string name="error.noNetwork">No network available</string>
     <string name="error.unknown">Uooops! Something weird happened</string>
+    <string name="login.email">Email</string>
+    <string name="login.password">Password</string>
+    <string name="login.forgotPassword">Forgot your password?</string>
+    <string name="login.login">Login</string>
+    <string name="login.signup">Signup</string>
+    <string name="login.error.invalidUserOrPassword">Invalid user or password</string>
+    <string name="login.error.network">Network unavailable</string>
+    <string name="login.error.emptyEmail">Email is empty</string>
+    <string name="login.error.emptyPassword">Password is empty</string>
 
 </resources>
