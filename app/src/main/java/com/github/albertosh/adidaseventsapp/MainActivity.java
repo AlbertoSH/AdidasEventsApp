@@ -11,10 +11,13 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import com.github.albertosh.adidasevents.sdk.usermanagement.IUserManagement;
 import com.github.albertosh.adidaseventsapp.ui.main.MainController;
 
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,19 +52,32 @@ public class MainActivity extends AppCompatActivity {
                             .doOnNext(token -> {
                                 app.createUserComponent(token);
                             })
+                            .defaultIfEmpty(null)
                             .subscribeOn(Schedulers.newThread());
+
             Observable loadProperties = app.getAppComponent().customService()
                     .get()
-                    .doOnSuccess(next -> app.setProperties(next))
                     .subscribeOn(Schedulers.io())
-                    .toObservable();
+                    .toObservable()
+                    ;
 
-            Observable.zip(checkIfUserIsLoggedIn, loadProperties, (a, b) -> null)
+            Observable.zip(checkIfUserIsLoggedIn, loadProperties,
+                    (a, properties) -> properties)
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnCompleted(() -> {
+                    .subscribe(new Action1<Map<String, Object>>() {
+                        @Override
+                        public void call(Map<String, Object> properties) {
+                            app.setProperties(properties);
+                        }
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable error) {
+                            error.printStackTrace();
+                        }
+                    }, () -> {
                         router.setRoot(RouterTransaction.with(new MainController()));
-                    }).subscribe();
+                    });
         }
     }
 
