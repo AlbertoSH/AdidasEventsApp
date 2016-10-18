@@ -29,7 +29,7 @@ public class EventDetailPresenter
     }
 
     @Override
-    public void loadEvent(@Nullable AEvent event, String eventId) {
+    public void loadEvent(AEvent event, String eventId) {
         if (event != null) {
             showData(event);
         } else {

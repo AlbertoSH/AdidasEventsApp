@@ -5,7 +5,7 @@ import com.github.albertosh.adidasevents.sdk.repositories.event.IEventAllReposit
 
 import java.util.List;
 
-import javax.annotation.Nullable;
+
 
 import rx.Observable;
 
@@ -23,7 +23,7 @@ public class GetAllEventsUseCase implements IGetAllEventsUseCase {
     }
 
     @Override
-    public Observable<List<Event>> execute(@Nullable String language) {
+    public Observable<List<Event>> execute(String language) {
         return eventAllRepositoryRead.read(language);
     }
 

@@ -4,7 +4,7 @@ import com.github.albertosh.adidasevents.sdk.api.privateapi.events.enroll.IEnrol
 import com.github.albertosh.adidasevents.sdk.models.Event;
 import com.github.albertosh.adidasevents.sdk.repositories.mapper.EventMapper;
 
-import javax.annotation.Nullable;
+
 
 import rx.Single;
 
@@ -20,7 +20,7 @@ public class EnrollEventUseCase implements IEnrollEventUseCase{
 
 
     @Override
-    public Single<Event> execute(@Nullable String eventId) {
+    public Single<Event> execute(String eventId) {
         return enrollService.execute(eventId)
                 .map(eventMapper::map);
     }

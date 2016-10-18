@@ -21,8 +21,6 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.LceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 import com.squareup.picasso.Picasso;
 
-import javax.annotation.Nonnull;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -33,14 +31,14 @@ public class EventDetailController
     private final static String KEY_EVENT_ID = "EventDetailController.eventId";
     private final static String KEY_EVENT = "EventDetailController.event";
 
-    public static EventDetailController getInstance(@Nonnull AEvent event) {
+    public static EventDetailController getInstance(AEvent event) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(KEY_EVENT, event);
         bundle.putString(KEY_EVENT_ID, event.getId());
         return new EventDetailController(bundle);
     }
 
-    public static EventDetailController getInstance(@Nonnull String eventId) {
+    public static EventDetailController getInstance(String eventId) {
         Bundle bundle = new Bundle();
         bundle.putString(KEY_EVENT_ID, eventId);
         return new EventDetailController(bundle);

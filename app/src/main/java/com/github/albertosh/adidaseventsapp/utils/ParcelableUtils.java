@@ -21,7 +21,7 @@ public class ParcelableUtils {
         dest.writeSerializable(value);
     }
 
-    @Nullable
+
     public static <T extends Serializable> T readSerializable(Parcel in) {
         return (T) readSerializable(in, null);
     }
@@ -45,7 +45,7 @@ public class ParcelableUtils {
         dest.writeString(value);
     }
 
-    @Nullable
+
     public static String readString(Parcel in) {
         return readString(in, null);
     }
@@ -69,7 +69,7 @@ public class ParcelableUtils {
         dest.writeInt(value ? 1 : 0);
     }
 
-    @Nullable
+
     public static Boolean readBoolean(Parcel in) {
         return readBoolean(in, null);
     }

@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import java8.util.stream.Collectors;
 import java8.util.stream.StreamSupport;
 import rx.Observable;
@@ -34,7 +32,7 @@ public class EventAllRepositoryRead implements IEventAllRepositoryRead {
     }
 
     @Override
-    public Observable<List<Event>> read(@Nullable String language) {
+    public Observable<List<Event>> read(String language) {
         return queryByPage(0, language)
                 .scan(Collections.emptyList(), new Func2<List<Event>, List<Event>, List<Event>>() {
                     @Override

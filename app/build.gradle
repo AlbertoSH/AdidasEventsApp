@@ -16,7 +16,7 @@ android {
         applicationId "com.github.albertosh.adidaseventsapp"
         targetSdkVersion 24
         versionCode 1
-        minSdkVersion 21
+        minSdkVersion 16
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

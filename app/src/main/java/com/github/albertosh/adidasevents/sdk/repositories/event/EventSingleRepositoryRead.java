@@ -5,7 +5,7 @@ import com.github.albertosh.adidasevents.sdk.api.publicapi.events.single.IGetSin
 import com.github.albertosh.adidasevents.sdk.models.Event;
 import com.github.albertosh.adidasevents.sdk.repositories.mapper.EventMapper;
 
-import javax.annotation.Nullable;
+
 
 import rx.Observable;
 
@@ -25,7 +25,7 @@ public class EventSingleRepositoryRead implements IEventSingleRepositoryRead {
     }
 
     @Override
-    public Observable<Event> read(String id, @Nullable String language) {
+    public Observable<Event> read(String id, String language) {
         GetSingleEventServiceInput input = new GetSingleEventServiceInput.Builder()
                 .id(id)
                 .language(language)

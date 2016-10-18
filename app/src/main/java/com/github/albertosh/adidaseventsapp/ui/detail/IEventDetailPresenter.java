@@ -7,7 +7,7 @@ import com.github.albertosh.adidaseventsapp.ui.base.IBasePresenter;
 
 public interface IEventDetailPresenter extends IBasePresenter<EventDetailView> {
 
-    void loadEvent(@Nullable AEvent event, String eventId);
+    void loadEvent(AEvent event, String eventId);
 
     void enrollEvent();
 
